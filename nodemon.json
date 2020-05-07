@@ -1,0 +1,5 @@
+{
+  "env": {
+    "MONGODB_SETTING": "mongodb+srv://iciness_succulents:iciness_succulents@cluster0-9oxau.mongodb.net/mongo-graphql?retryWrites=true&w=majority"
+  }
+}

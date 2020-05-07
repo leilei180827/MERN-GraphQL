@@ -1,0 +1,20 @@
+{
+  "name": "booking-app_graphql-mongodb-react-nodejs",
+  "version": "1.0.0",
+  "description": "a booking app based on graphql mongodb and presented by react",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "leilei",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^15.0.0",
+    "mongoose": "^5.9.12",
+    "nodemon": "^2.0.3"
+  }
+}
