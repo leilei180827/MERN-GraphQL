@@ -1,0 +1,46 @@
+.navbarMainPage {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 10vh;
+  font-family: sans-serif;
+  background-color: cadetblue;
+  color: #000;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: "logo items items . .";
+}
+.navbarLogo {
+  font-size: 2rem;
+  font-weight: bold;
+  grid-area: logo;
+  align-self: center;
+  justify-self: center;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.navbarItems {
+  grid-area: items;
+}
+.navbarItems ul {
+  list-style: none;
+  display: flex;
+}
+.navbarItems ul li {
+  margin-right: 1rem;
+}
+.navbarItems ul li a {
+  text-decoration: none;
+  color: rgb(21, 6, 160);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+.navbarItems ul li a:hover,
+.navbarItems ul li a.active {
+  background-color: rgb(53, 49, 87);
+  color: rgb(216, 216, 112);
+}
