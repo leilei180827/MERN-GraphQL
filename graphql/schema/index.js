@@ -30,7 +30,12 @@ input UserInput {
     email:String!
     password:String!
 }
-
+type AuthData{
+  userId:ID!
+  email:String!
+  token:String!
+  tokenExpiration:Int!
+}
 schema {
   query: RootQuery,
   mutation: RootMutation
@@ -39,6 +44,7 @@ type RootQuery {
   events: [Event!]!
   users:[User!]!
   bookings:[Booking!]!
+  login(email:String!,password:String!): AuthData
   
 }
 type RootMutation {
