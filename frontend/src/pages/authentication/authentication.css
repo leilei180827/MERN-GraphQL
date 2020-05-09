@@ -1,0 +1,31 @@
+form {
+  margin: auto;
+  width: 30%;
+  margin-top: 11vh;
+}
+.form-group {
+  margin: 1rem;
+}
+.form-group label,
+.form-group input {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+.form-group button {
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: teal;
+  color: #000;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+.form-group button:hover {
+  background-color: rgb(6, 100, 100);
+  color: #fff;
+}
