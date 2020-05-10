@@ -1,5 +1,4 @@
-.form-group
-{
+.form-group {
   margin: 1rem auto;
   width: 90%;
 }
@@ -17,7 +16,8 @@
 }
 .form-group button,
 .event-btn,
-.modal-control button {
+.modal-control button,
+.single-event .event-creator button {
   font-size: 1rem;
   border-radius: 5px;
   background-color: teal;
@@ -29,7 +29,8 @@
 }
 .form-group button:hover,
 .event-btn:hover,
-.modal-control button:hover {
+.modal-control button:hover,
+.single-event .event-creator button:hover {
   background-color: rgb(6, 100, 100);
   color: #fff;
 }
