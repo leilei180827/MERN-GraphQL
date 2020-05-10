@@ -1,24 +1,41 @@
-import React, { createRef } from "react";
+import React, { createRef, useState, Component, useContext } from "react";
 import "./authentication.css";
+import AuthContext from "../../context/authContext";
 const Authentication = () => {
   const emailEl = createRef();
   const passwordEl = createRef();
+  const [isLogin, setIsLogin] = useState(true);
+  const context = useContext(AuthContext);
   const submitHandler = (event) => {
     event.preventDefault();
+    console.log("submit");
     const email = emailEl.current.value;
     const password = passwordEl.current.value;
-    const requestQuery = {
-      query: `
-      mutation{
-        createUser(userInput:{
-          email:"${email}",
-          password:"${password}"
-        }){
-          _id
+    let requestQuery = {
+      query: `query{
+        login(email:"${email}",password:"${password}"){
+          userId
           email
+          token
+          tokenExpiration
         }
       }`,
     };
+
+    if (!isLogin) {
+      requestQuery = {
+        query: `
+        mutation{
+          createUser(userInput:{
+            email:"${email}",
+            password:"${password}"
+          }){
+            _id
+            email
+          }
+        }`,
+      };
+    }
     fetch("http://localhost:5000/graphql", {
       method: "POST",
       body: JSON.stringify(requestQuery),
@@ -26,10 +43,24 @@ const Authentication = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(typeof response.status);
+        console.log(response.status);
+        if (response.status !== 200 && response.status !== 201) {
+          throw new Error("something went wrong!");
+        }
+        return response.json();
+      })
+      .then(({ data: { login } }) =>
+        context.login(login.userId, login.token, login.tokenExpiration)
+      )
       .catch((error) => console.log(error));
   };
+  const switchModal = (event) => {
+    event.preventDefault();
+    setIsLogin(!isLogin);
+  };
+  console.log(context);
   return (
     <form onSubmit={submitHandler}>
       <div className="form-group">
@@ -43,7 +74,9 @@ const Authentication = () => {
       </div>
       <div className="form-group">
         <button type="submit">Submit</button>
-        <button type="button">Switch to Sign Up</button>
+        <button type="button" onClick={switchModal}>
+          Switch to {isLogin ? "Signup" : "Login"}
+        </button>
       </div>
     </form>
   );

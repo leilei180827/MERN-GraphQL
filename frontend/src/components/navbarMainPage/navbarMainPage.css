@@ -1,7 +1,7 @@
 .navbarMainPage {
-  position: fixed;
+  /* position: fixed;
   left: 0;
-  top: 0;
+  top: 0; */
   width: 100%;
   height: 10vh;
   font-family: sans-serif;
@@ -28,19 +28,28 @@
 .navbarItems ul {
   list-style: none;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .navbarItems ul li {
   margin-right: 1rem;
 }
-.navbarItems ul li a {
+.navbarItems ul li a,
+.navbarItems ul li button {
   text-decoration: none;
   color: rgb(21, 6, 160);
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 5px;
+  background: transparent;
+  font: inherit;
+  border: none;
 }
 .navbarItems ul li a:hover,
-.navbarItems ul li a.active {
+.navbarItems ul li a:active,
+.navbarItems ul li a.active,
+.navbarItems ul li button:hover,
+.navbarItems ul li button:active {
   background-color: rgb(53, 49, 87);
   color: rgb(216, 216, 112);
 }
