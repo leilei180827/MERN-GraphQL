@@ -62,7 +62,7 @@ const Authentication = () => {
   };
   console.log(context);
   return (
-    <form onSubmit={submitHandler}>
+    <form className="auth-form" onSubmit={submitHandler}>
       <div className="form-group">
         <label htmlFor="email">Email:</label>
         <input type="email" id="email" ref={emailEl} />

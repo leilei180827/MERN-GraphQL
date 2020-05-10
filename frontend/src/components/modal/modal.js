@@ -1,5 +1,26 @@
 import React from "react";
-const Modal = () => {
-  return <h1>this is modal</h1>;
+import "./modal.css";
+import ModalDrop from "./modalDrop/modalDrop";
+const Modal = (props) => {
+  return (
+    <ModalDrop>
+      <div className="modal-wrap">
+        <div className="modal-title">{props.title}</div>
+        <div className="modal-content">{props.children}</div>
+        <div className="modal-control">
+          {props.canCancel && (
+            <button className="modal-btn" onClick={props.onCancel}>
+              Cancel
+            </button>
+          )}
+          {props.canConfirm && (
+            <button className="modal-btn" onClick={props.onConfirm}>
+              Confirm
+            </button>
+          )}
+        </div>
+      </div>
+    </ModalDrop>
+  );
 };
 export default Modal;

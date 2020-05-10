@@ -1,0 +1,23 @@
+.modal-wrap {
+  background-color: white;
+  width: 30%;
+  margin: auto;
+}
+.modal-title {
+  font-size: 1.2rem;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+.modal-form {
+  width: 80%;
+  margin: 0.5rem auto;
+}
+.modal-control {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
