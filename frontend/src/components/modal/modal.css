@@ -9,10 +9,19 @@
   text-transform: capitalize;
   font-weight: bold;
   margin-top: 0.5rem;
+  color: rgb(6, 100, 100);
 }
 .modal-form {
   width: 80%;
   margin: 0.5rem auto;
+}
+.modal-content p {
+  font-size: 1rem;
+  margin: 0.5rem;
+}
+.modal-content p span {
+  font-weight: bold;
+  padding: 0 0.5rem;
 }
 .modal-control {
   width: 90%;

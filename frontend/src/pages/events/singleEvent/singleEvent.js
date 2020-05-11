@@ -1,15 +1,11 @@
 import React, { useContext } from "react";
 import AuthContext from "../../../context/authContext";
 import "./singleEvent.css";
-const SingleEvent = ({ event }) => {
+import { convertTimestampsToDate } from "../../../helpers/date";
+const SingleEvent = (props) => {
+  const { event } = props;
   const context = useContext(AuthContext);
-  console.log("context");
-  console.log(context.userId);
-  const convertTimestampsToDate = (timestamps) => {
-    let date = new Date(parseInt(timestamps));
-    console.log(date);
-    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
-  };
+
   return (
     <React.Fragment>
       <li className="single-event">
@@ -23,7 +19,9 @@ const SingleEvent = ({ event }) => {
           {context.userId === event.creator._id ? (
             <p>you're the owner of this event</p>
           ) : (
-            <button>view detail</button>
+            <button onClick={() => props.viewDetailHandler(event._id)}>
+              view detail
+            </button>
           )}
         </div>
       </li>

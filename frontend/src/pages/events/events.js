@@ -2,9 +2,11 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import { Modal } from "../../components";
 import "./events.css";
 import AuthContext from "../../context/authContext";
-import  SingleEvent  from "./singleEvent/singleEvent";
+import SingleEvent from "./singleEvent/singleEvent";
+import { convertTimestampsToDate } from "../../helpers/date";
 const Events = () => {
   const [modal, setModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [events, setEvents] = useState([]);
   const titleEl = useRef("");
   const dateEl = useRef("");
@@ -55,6 +57,7 @@ const Events = () => {
   };
   const onCancel = () => {
     setModal(false);
+    setSelectedEvent(null);
   };
   const onConfirm = (event) => {
     event.preventDefault();
@@ -93,7 +96,43 @@ const Events = () => {
         }
         return response.json();
       })
-      .then(() => fetchEvents())
+      .then(({ data: { createEvent } }) => {
+        setEvents([...events, createEvent]);
+      })
+      .catch((error) => console.log(error));
+  };
+  const onBookEvent = () => {
+    if (!context.token) {
+      setSelectedEvent(null);                          
+      return;
+    }
+    const requestBody = {
+      query: `
+    mutation{
+      bookEvent(eventId:"${selectedEvent._id}"){
+        _id
+        createdAt
+        updatedAt
+      }
+    }`,
+    };
+    fetch("http://localhost:5000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + context.token,
+      },
+    })
+      .then((response) => {
+        if (response.status !== 200 && response.status !== 201) {
+          throw new Error("something went wrong");
+        }
+        return response.json();
+      })
+      .then(({ data: { bookEvent } }) => {
+        setSelectedEvent(null);
+      })
       .catch((error) => console.log(error));
   };
   const modalContent = (
@@ -116,6 +155,33 @@ const Events = () => {
       </div>
     </form>
   );
+  const viewDetailContent = (
+    <div className="detail-wrap">
+      <div className="form-group">
+        {selectedEvent ? (
+          <React.Fragment>
+            <p>
+              Date: <span>{convertTimestampsToDate(selectedEvent.date)}</span>
+            </p>
+            <p>
+              Price: <span>{selectedEvent.price}</span>
+            </p>
+            <p>
+              Description: <span>{selectedEvent.description}</span>
+            </p>
+            <p>
+              Creator Email: <span>{selectedEvent.creator.email}</span>
+            </p>
+          </React.Fragment>
+        ) : null}
+      </div>
+    </div>
+  );
+  const viewDetailHandler = (eventId) => {
+    console.log(eventId);
+    setSelectedEvent(events.find((event) => event._id === eventId));
+  };
+
   return (
     <React.Fragment>
       {modal && (
@@ -129,6 +195,18 @@ const Events = () => {
           {modalContent}
         </Modal>
       )}
+      {selectedEvent && (
+        <Modal
+          title={selectedEvent.title}
+          canCancel
+          canConfirm
+          onCancel={onCancel}
+          onConfirm={onBookEvent}
+          confirmText={context.token ? "Book" : "Confirm"}
+        >
+          {viewDetailContent}
+        </Modal>
+      )}
       {context.token && (
         <div className="event-wrap">
           <p className="secondary-title">Share your own events</p>
@@ -139,7 +217,13 @@ const Events = () => {
       )}
       <div className="event-items-wrap">
         <ul>
-          {events.map((event) => <SingleEvent key={event._id} event={event}/>)}
+          {events.map((event) => (
+            <SingleEvent
+              key={event._id}
+              event={event}
+              viewDetailHandler={viewDetailHandler}
+            />
+          ))}
         </ul>
       </div>
     </React.Fragment>

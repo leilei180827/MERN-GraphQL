@@ -1,4 +1,4 @@
-import React, { createRef, useState, Component, useContext } from "react";
+import React, { createRef, useState, useContext } from "react";
 import "./authentication.css";
 import AuthContext from "../../context/authContext";
 const Authentication = () => {
@@ -8,7 +8,6 @@ const Authentication = () => {
   const context = useContext(AuthContext);
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log("submit");
     const email = emailEl.current.value;
     const password = passwordEl.current.value;
     let requestQuery = {
@@ -44,8 +43,6 @@ const Authentication = () => {
       },
     })
       .then((response) => {
-        console.log(typeof response.status);
-        console.log(response.status);
         if (response.status !== 200 && response.status !== 201) {
           throw new Error("something went wrong!");
         }
@@ -60,7 +57,6 @@ const Authentication = () => {
     event.preventDefault();
     setIsLogin(!isLogin);
   };
-  console.log(context);
   return (
     <form className="auth-form" onSubmit={submitHandler}>
       <div className="form-group">

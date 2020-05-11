@@ -5,7 +5,6 @@ import AuthContext from "../../context/authContext";
 const NavbarMainPage = () => (
   <AuthContext.Consumer>
     {(value) => {
-      console.log(value);
       return (
         <div className="navbarMainPage">
           <div className="navbarLogo">EasyEvent</div>
