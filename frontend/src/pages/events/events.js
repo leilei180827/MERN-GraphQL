@@ -3,11 +3,13 @@ import { Modal } from "../../components";
 import "./events.css";
 import AuthContext from "../../context/authContext";
 import SingleEvent from "./singleEvent/singleEvent";
+import Spinner from "../../components/spinner/spinner";
 import { convertTimestampsToDate } from "../../helpers/date";
 const Events = () => {
   const [modal, setModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(false);
   const titleEl = useRef("");
   const dateEl = useRef("");
   const priceEl = useRef("");
@@ -19,6 +21,7 @@ const Events = () => {
   }, []);
 
   const fetchEvents = () => {
+    setLoading(true);
     const fetchEventsBody = {
       query: `query {
         events{
@@ -48,6 +51,7 @@ const Events = () => {
         return response.json();
       })
       .then(({ data: { events } }) => {
+        setLoading(false);
         setEvents(events);
       })
       .catch((error) => console.log(error));
@@ -215,15 +219,19 @@ const Events = () => {
         </div>
       )}
       <div className="event-items-wrap">
-        <ul>
-          {events.map((event) => (
-            <SingleEvent
-              key={event._id}
-              event={event}
-              viewDetailHandler={viewDetailHandler}
-            />
-          ))}
-        </ul>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <ul>
+            {events.map((event) => (
+              <SingleEvent
+                key={event._id}
+                event={event}
+                viewDetailHandler={viewDetailHandler}
+              />
+            ))}
+          </ul>
+        )}
       </div>
     </React.Fragment>
   );

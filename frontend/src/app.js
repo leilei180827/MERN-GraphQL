@@ -11,14 +11,12 @@ class App extends Component {
   };
   login = (userId, token, tokenExpiration) => {
     this.setState({
-      ...this.state,
       token: token,
       userId: userId,
     });
   };
   logout = () => {
     this.setState({
-      ...this.state,
       token: "",
       userId: "",
     });
@@ -42,7 +40,7 @@ class App extends Component {
                 {!this.state.token && (
                   <Route path="/auth" component={Authentication} />
                 )}
-                {!this.state.token && <Redirect to="/auth" />}
+                {!this.state.token && <Redirect from="*" to="/auth" />}
                 {this.state.token && (
                   <Route path="/bookings" component={Bookings} />
                 )}
