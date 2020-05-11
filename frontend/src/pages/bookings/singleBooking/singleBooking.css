@@ -1,0 +1,19 @@
+.singleBooking {
+  border: 1px solid rgb(42, 83, 196);
+  margin: 0.5rem auto;
+  padding: 0 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.singleBooking .booking-infos .title,
+.singleBooking .booking-infos .infos {
+  display: block;
+}
+.singleBooking .booking-infos .title {
+  color: rgb(42, 83, 196);
+  font-size: 1.2rem;
+}
+.singleBooking .booking-infos .infos {
+  font-size: 1rem;
+}

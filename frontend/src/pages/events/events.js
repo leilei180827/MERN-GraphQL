@@ -103,7 +103,7 @@ const Events = () => {
   };
   const onBookEvent = () => {
     if (!context.token) {
-      setSelectedEvent(null);                          
+      setSelectedEvent(null);
       return;
     }
     const requestBody = {
@@ -178,7 +178,6 @@ const Events = () => {
     </div>
   );
   const viewDetailHandler = (eventId) => {
-    console.log(eventId);
     setSelectedEvent(events.find((event) => event._id === eventId));
   };
 
